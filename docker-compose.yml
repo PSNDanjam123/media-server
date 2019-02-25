@@ -1,0 +1,94 @@
+version: '2'
+
+services:
+    plex:
+        image: linuxserver/plex
+        network_mode: host
+        environment:
+            - PUID=${USER_ID}
+            - PGID=${GROUP_ID}
+            - VERSION=docker
+        volumes:
+            - ./config/plex:/config
+            - ${TELEVISION_DIR}:/data/tv/shows
+            - ${MOVIES_DIR}:/data/movies
+            - ${TRANSCODE_DIR}:/transcode
+        mem_limit: ${PLEX_MEM_LIMIT}
+        restart: unless-stopped
+    ombi:
+        image: linuxserver/ombi
+        environment:
+            - PUID=${USER_ID}
+            - PGID=${GROUP_ID}
+            - TZ=Europe/London
+        volumes:
+            - ./config/ombi:/config
+        ports:
+            - 3579:3579
+        mem_limit: ${OMBI_MEM_LIMIT}
+        restart: unless-stopped
+    radarr:
+        image: linuxserver/radarr
+        environment:
+            - PUID=${USER_ID}
+            - PGID=${GROUP_ID}
+            - TZ=Europe/London
+        volumes:
+            - ./config/radarr:/config
+            - ${MOVIES_DIR}:/movies
+            - ${DOWNLOAD_DIR}:/downloads
+        ports:
+            - 7878:7878
+        mem_limit: ${RADARR_MEM_LIMIT}
+        restart: unless-stopped
+        networks:
+            - server
+    transmission:
+        image: linuxserver/transmission
+        environment:
+            - PUID=${USER_ID}
+            - PGID=${GROUP_ID}
+            - TZ=Europe/London
+        volumes:
+            - ./config/transmission:/config
+            - ${DOWNLOAD_DIR}:/downloads
+            - ${WATCH_DIR}:/watch
+        ports:
+            - 9091:9091
+            - 51413:51413
+            - 51413:51413/udp
+        mem_limit: ${TRANSMISSION_MEM_LIMIT}
+        restart: unless-stopped
+    tor:
+        networks:
+            - server
+        image: osminogin/tor-simple
+    organizr:
+        image: lsiocommunity/organizr
+        environment:
+            - PUID=${USER_ID}
+            - PGID=${GROUP_ID}
+            - TZ=Europe/London
+        volumes:
+            - ./config/organizr:/config
+        ports:
+            - 80:80
+        restart: unless-stopped
+    jackett:
+        image: linuxserver/jackett
+        environment:
+            - PUID=${USER_ID}
+            - PGID=${GROUP_ID}
+            - TZ=Europe/London
+        volumes:
+            - ./config/jackett:/config
+            - ${DOWNLOAD_DIR}:/downloads
+        ports:
+            - 9117:9117
+        mem_limit: ${JACKETT_MEM_LIMIT}
+        restart: unless-stopped
+        networks:
+            - server
+
+networks:
+    server:
