@@ -9,7 +9,7 @@ services:
             - PGID=${GROUP_ID}
             - VERSION=docker
         volumes:
-            - ./config/plex:/config
+            - ${CONFIG_DIR}/plex:/config
             - ${TELEVISION_DIR}:/data/tv/shows
             - ${MOVIES_DIR}:/data/movies
             - ${TRANSCODE_DIR}:/transcode
@@ -22,7 +22,7 @@ services:
             - PGID=${GROUP_ID}
             - TZ=Europe/London
         volumes:
-            - ./config/ombi:/config
+            - ${CONFIG_DIR}/ombi:/config
         ports:
             - 3579:3579
         mem_limit: ${OMBI_MEM_LIMIT}
@@ -34,7 +34,7 @@ services:
             - PGID=${GROUP_ID}
             - TZ=Europe/London
         volumes:
-            - ./config/radarr:/config
+            - ${CONFIG_DIR}/radarr:/config
             - ${MOVIES_DIR}:/movies
             - ${DOWNLOAD_DIR}:/downloads
         ports:
@@ -50,7 +50,7 @@ services:
             - PGID=${GROUP_ID}
             - TZ=Europe/London
         volumes:
-            - ./config/transmission:/config
+            - ${CONFIG_DIR}/transmission:/config
             - ${DOWNLOAD_DIR}:/downloads
             - ${WATCH_DIR}:/watch
         ports:
@@ -70,7 +70,7 @@ services:
             - PGID=${GROUP_ID}
             - TZ=Europe/London
         volumes:
-            - ./config/organizr:/config
+            - ${CONFIG_DIR}/organizr:/config
         ports:
             - 80:80
         restart: unless-stopped
@@ -81,7 +81,7 @@ services:
             - PGID=${GROUP_ID}
             - TZ=Europe/London
         volumes:
-            - ./config/jackett:/config
+            - ${CONFIG_DIR}/jackett:/config
             - ${DOWNLOAD_DIR}:/downloads
         ports:
             - 9117:9117
