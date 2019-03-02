@@ -7,6 +7,9 @@ My personal media server configuration using docker-compose
 3. Run `docker-compose up -d` and follow the setup instructions for each app.
 
 ## Environment Variables
+Before you start the server you need to configure the environment variables, an `example.env` has been included.
+Simply copy and rename this file to `.env` (don't forget to change the values inside).
+
 - USER_ID User identifier, e.g 1000
 - GROUP_ID Group identifier, e.g 1000
 - TELEVISION_DIR Directory for TV shows, e.g /data/tv
