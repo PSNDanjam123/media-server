@@ -48,7 +48,7 @@ services:
             - PGID={GROUP_ID}
             - TZ=${TIMEZONE}
         volumes:
-            -${CONFIG_DIR}:/sonarr:/config
+            - ${CONFIG_DIR}/sonarr:/config
             - ${TELEVISION_DIR}:/tv
             - ${DOWNLOAD_DIR}:/downloads
         ports:
