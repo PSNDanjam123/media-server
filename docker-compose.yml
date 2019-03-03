@@ -1,71 +1,66 @@
-version: '2'
+version: '3.7'
 
 services:
     plex:
         image: linuxserver/plex
         network_mode: host
         environment:
-            - PUID=${USER_ID}
-            - PGID=${GROUP_ID}
+            - PUID=${USER_ID:?USER_ID}
+            - PGID=${GROUP_ID:?GROUP_ID}
             - VERSION=docker
         volumes:
-            - ${CONFIG_DIR}/plex:/config
+            - ${CONFIG_DIR:-./config}/plex:/config
             - ${TELEVISION_DIR}:/data/tv/shows
             - ${MOVIES_DIR}:/data/movies
             - ${TRANSCODE_DIR}:/transcode
-        mem_limit: ${PLEX_MEM_LIMIT}
         restart: unless-stopped
     ombi:
         image: linuxserver/ombi
         environment:
-            - PUID=${USER_ID}
-            - PGID=${GROUP_ID}
-            - TZ=${TIMEZONE}
+            - PUID=${USER_ID:?USER_ID}
+            - PGID=${GROUP_ID:?GROUP_ID}
+            - TZ=${TIMEZONE:-Europe/London}
         volumes:
-            - ${CONFIG_DIR}/ombi:/config
+            - ${CONFIG_DIR:-./config}/ombi:/config
         ports:
             - 3579:3579
-        mem_limit: ${OMBI_MEM_LIMIT}
         restart: unless-stopped
     radarr:
         image: linuxserver/radarr
         environment:
-            - PUID=${USER_ID}
-            - PGID=${GROUP_ID}
-            - TZ=${TIMEZONE}
+            - PUID=${USER_ID:?USER_ID}
+            - PGID=${GROUP_ID:?GROUP_ID}
+            - TZ=${TIMEZONE:-Europe/London}
         volumes:
-            - ${CONFIG_DIR}/radarr:/config
+            - ${CONFIG_DIR:-./config}/radarr:/config
             - ${MOVIES_DIR}:/movies
             - ${DOWNLOAD_DIR}:/downloads
         ports:
             - 7878:7878
-        mem_limit: ${RADARR_MEM_LIMIT}
         restart: unless-stopped
     sonarr:
         image: linuxserver/sonarr
         environment:
-            - PUID=${USER_ID}
-            - PGID={GROUP_ID}
-            - TZ=${TIMEZONE}
+            - PUID=${USER_ID:?USER_ID}
+            - PGID={GROUP_ID:?GROUP_ID}
+            - TZ=${TIMEZONE:-Europe/London}
         volumes:
-            - ${CONFIG_DIR}/sonarr:/config
+            - ${CONFIG_DIR:-./config}/sonarr:/config
             - ${TELEVISION_DIR}:/tv
             - ${DOWNLOAD_DIR}:/downloads
         ports:
             - 8989:8989
-        mem_limit: ${SONARR_MEM_LIMIT}
         restart: unless-stopped
     deluge:
         image: linuxserver/deluge
         network_mode: host
         environment:
-            - PUID=${USER_ID}
-            - PGID=${GROUP_ID}
-            - TZ=${TIMEZONE}
+            - PUID=${USER_ID:?USER_ID}
+            - PGID=${GROUP_ID:?GROUP_ID}
+            - TZ=${TIMEZONE:-Europe/London}
         volumes:
-            - ${CONFIG_DIR}/deluge:/config
+            - ${CONFIG_DIR:-./config}/deluge:/config
             - ${DOWNLOAD_DIR}:/downloads
-        mem_limit: ${DELUGE_MEM_LIMIT}
         restart: unless-stopped
     tor:
         networks:
@@ -74,42 +69,40 @@ services:
     organizr:
         image: lsiocommunity/organizr
         environment:
-            - PUID=${USER_ID}
-            - PGID=${GROUP_ID}
-            - TZ=${TIMEZONE}
+            - PUID=${USER_ID:?USER_ID}
+            - PGID=${GROUP_ID:?GROUP_ID}
+            - TZ=${TIMEZONE:-Europe/London}
         volumes:
-            - ${CONFIG_DIR}/organizr:/config
+            - ${CONFIG_DIR:-./config}/organizr:/config
         ports:
             - 80:80
         restart: unless-stopped
     jackett:
         image: linuxserver/jackett
         environment:
-            - PUID=${USER_ID}
-            - PGID=${GROUP_ID}
-            - TZ=${TIMEZONE}
+            - PUID=${USER_ID:?USER_ID}
+            - PGID=${GROUP_ID:?GROUP_ID}
+            - TZ=${TIMEZONE:-Europe/London}
         volumes:
-            - ${CONFIG_DIR}/jackett:/config
+            - ${CONFIG_DIR:-./config}/jackett:/config
             - ${DOWNLOAD_DIR}:/downloads
         ports:
             - 9117:9117
-        mem_limit: ${JACKETT_MEM_LIMIT}
         restart: unless-stopped
         networks:
             - server
     bazarr:
         image: linuxserver/bazarr
         environment:
-            - PUID=${USER_ID}
-            - PGID=${GROUP_ID}
-            - TZ=${TIMEZONE}
+            - PUID=${USER_ID:?USER_ID}
+            - PGID=${GROUP_ID:?GROUP_ID}
+            - TZ=${TIMEZONE:-Europe/London}
         volumes:
-            - ${CONFIG_DIR}/bazarr:/config
+            - ${CONFIG_DIR:-./config}/bazarr:/config
             - ${MOVIES_DIR}:/movies
             - ${TELEVISION_DIR}:/tv
         ports:
             - 6767:6767
-        mem_limit: ${BAZARR_MEM_LIMIT}
         restart: unless-stopped
 
 networks:
