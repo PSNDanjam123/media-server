@@ -41,8 +41,6 @@ services:
             - 7878:7878
         mem_limit: ${RADARR_MEM_LIMIT}
         restart: unless-stopped
-        networks:
-            - server
     transmission:
         image: linuxserver/transmission
         environment:
@@ -89,6 +87,20 @@ services:
         restart: unless-stopped
         networks:
             - server
+    bazarr:
+        image: linuxserver/bazarr
+        environment:
+            - PUID=${USER_ID}
+            - PGID=${GROUP_ID}
+            - TZ=Europe/London
+        volumes:
+            - ${CONFIG_DIR}/bazarr:/config
+            - ${MOVIES_DIR}:/movies
+            - ${TELEVISION_DIR}:/tv
+        ports:
+            - 6767:6767
+        mem_limit: ${BAZARR_MEM_LIMIT}
+        restart: unless-stopped
 
 networks:
     server:
