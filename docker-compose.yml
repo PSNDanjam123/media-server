@@ -20,7 +20,7 @@ services:
         environment:
             - PUID=${USER_ID}
             - PGID=${GROUP_ID}
-            - TZ=Europe/London
+            - TZ=${TIMEZONE}
         volumes:
             - ${CONFIG_DIR}/ombi:/config
         ports:
@@ -32,7 +32,7 @@ services:
         environment:
             - PUID=${USER_ID}
             - PGID=${GROUP_ID}
-            - TZ=Europe/London
+            - TZ=${TIMEZONE}
         volumes:
             - ${CONFIG_DIR}/radarr:/config
             - ${MOVIES_DIR}:/movies
@@ -46,7 +46,7 @@ services:
         environment:
             - PUID=${USER_ID}
             - PGID=${GROUP_ID}
-            - TZ=Europe/London
+            - TZ=${TIMEZONE}
         volumes:
             - ${CONFIG_DIR}/transmission:/config
             - ${DOWNLOAD_DIR}:/downloads
@@ -66,7 +66,7 @@ services:
         environment:
             - PUID=${USER_ID}
             - PGID=${GROUP_ID}
-            - TZ=Europe/London
+            - TZ=${TIMEZONE}
         volumes:
             - ${CONFIG_DIR}/organizr:/config
         ports:
@@ -77,7 +77,7 @@ services:
         environment:
             - PUID=${USER_ID}
             - PGID=${GROUP_ID}
-            - TZ=Europe/London
+            - TZ=${TIMEZONE}
         volumes:
             - ${CONFIG_DIR}/jackett:/config
             - ${DOWNLOAD_DIR}:/downloads
@@ -92,7 +92,7 @@ services:
         environment:
             - PUID=${USER_ID}
             - PGID=${GROUP_ID}
-            - TZ=Europe/London
+            - TZ=${TIMEZONE}
         volumes:
             - ${CONFIG_DIR}/bazarr:/config
             - ${MOVIES_DIR}:/movies
