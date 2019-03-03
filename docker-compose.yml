@@ -55,21 +55,17 @@ services:
             - 8989:8989
         mem_limit: ${SONARR_MEM_LIMIT}
         restart: unless-stopped
-    transmission:
-        image: linuxserver/transmission
+    deluge:
+        image: linuxserver/deluge
+        network_mode: host
         environment:
             - PUID=${USER_ID}
             - PGID=${GROUP_ID}
             - TZ=${TIMEZONE}
         volumes:
-            - ${CONFIG_DIR}/transmission:/config
+            - ${CONFIG_DIR}/deluge:/config
             - ${DOWNLOAD_DIR}:/downloads
-            - ${WATCH_DIR}:/watch
-        ports:
-            - 9091:9091
-            - 51413:51413
-            - 51413:51413/udp
-        mem_limit: ${TRANSMISSION_MEM_LIMIT}
+        mem_limit: ${DELUGE_MEM_LIMIT}
         restart: unless-stopped
     tor:
         networks:
