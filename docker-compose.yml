@@ -78,7 +78,7 @@ services:
             - 80:80
         restart: unless-stopped
     jackett:
-        image: linuxserver/jackett
+        image: linuxserver/jackett:v0.10.804-ls6
         environment:
             - PUID=${USER_ID:?USER_ID}
             - PGID=${GROUP_ID:?GROUP_ID}
