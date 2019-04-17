@@ -1,114 +1,114 @@
 version: '3.7'
 
 services:
-    plex:
-        image: linuxserver/plex
-        network_mode: host
-        environment:
-            - PUID=${USER_ID:?USER_ID}
-            - PGID=${GROUP_ID:?GROUP_ID}
-            - VERSION=docker
-        volumes:
-            - ${CONFIG_DIR:-./config}/plex:/config
-            - ${TELEVISION_DIR:-./data/tv}:/data/tv/shows
-            - ${MOVIES_DIR:-./data/movies}:/data/movies
-            - ${TRANSCODE_DIR:-./data/transcode}:/transcode
-        restart: unless-stopped
-    ombi:
-        image: linuxserver/ombi
-        environment:
-            - PUID=${USER_ID:?USER_ID}
-            - PGID=${GROUP_ID:?GROUP_ID}
-            - TZ=${TIMEZONE:-Europe/London}
-        volumes:
-            - ${CONFIG_DIR:-./config}/ombi:/config
-        ports:
-            - 3579:3579
-        restart: unless-stopped
-    radarr:
-        image: linuxserver/radarr
-        environment:
-            - PUID=${USER_ID:?USER_ID}
-            - PGID=${GROUP_ID:?GROUP_ID}
-            - TZ=${TIMEZONE:-Europe/London}
-        volumes:
-            - ${CONFIG_DIR:-./config}/radarr:/config
-            - ${MOVIES_DIR:-./data/movies}:/movies
-            - ${DOWNLOAD_DIR:-./data/downloads}:/downloads
-        ports:
-            - 7878:7878
-        restart: unless-stopped
-    sonarr:
-        image: linuxserver/sonarr
-        environment:
-            - PUID=${USER_ID:?USER_ID}
-            - PGID={GROUP_ID:?GROUP_ID}
-            - TZ=${TIMEZONE:-Europe/London}
-        volumes:
-            - ${CONFIG_DIR:-./config}/sonarr:/config
-            - ${TELEVISION_DIR:-./data/tv}:/tv
-            - ${DOWNLOAD_DIR:-./data/downloads}:/downloads
-        ports:
-            - 8989:8989
-        restart: unless-stopped
-    deluge:
-        image: linuxserver/deluge
-        network_mode: host
-        environment:
-            - PUID=${USER_ID:?USER_ID}
-            - PGID=${GROUP_ID:?GROUP_ID}
-            - TZ=${TIMEZONE:-Europe/London}
-        volumes:
-            - ${CONFIG_DIR:-./config}/deluge:/config
-            - ${DOWNLOAD_DIR:-./data/downloads}:/downloads
-        restart: unless-stopped
-    tor:
-        networks:
-            - server
-        image: osminogin/tor-simple
-    organizr:
-        image: lsiocommunity/organizr
-        environment:
-            - PUID=${USER_ID:?USER_ID}
-            - PGID=${GROUP_ID:?GROUP_ID}
-            - TZ=${TIMEZONE:-Europe/London}
-        volumes:
-            - ${CONFIG_DIR:-./config}/organizr:/config
-        ports:
-            - 80:80
-        restart: unless-stopped
-    jackett:
-        image: linuxserver/jackett:v0.10.804-ls6
-        environment:
-            - PUID=${USER_ID:?USER_ID}
-            - PGID=${GROUP_ID:?GROUP_ID}
-            - TZ=${TIMEZONE:-Europe/London}
-        volumes:
-            - ${CONFIG_DIR:-./config}/jackett:/config
-            - ${DOWNLOAD_DIR:-./data/downloads}:/downloads
-        ports:
-            - 9117:9117
-        restart: unless-stopped
-        networks:
-            - server
-    bazarr:
-        image: linuxserver/bazarr
-        environment:
-            - PUID=${USER_ID:?USER_ID}
-            - PGID=${GROUP_ID:?GROUP_ID}
-            - TZ=${TIMEZONE:-Europe/London}
-        volumes:
-            - ${CONFIG_DIR:-./config}/bazarr:/config
-            - ${MOVIES_DIR:-./data/movies}:/movies
-            - ${TELEVISION_DIR:-./data/tv}:/tv
-        ports:
-            - 6767:6767
-        restart: unless-stopped
-    watchtower:
-        image: v2tec/watchtower
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
-        restart: unless-stopped
+  plex:
+    image: linuxserver/plex
+    network_mode: host
+    environment:
+      - PUID=${USER_ID:?USER_ID}
+      - PGID=${GROUP_ID:?GROUP_ID}
+      - VERSION=docker
+    volumes:
+      - ${CONFIG_DIR:-./config}/plex:/config
+      - ${TELEVISION_DIR:-./data/tv}:/data/tv/shows
+      - ${MOVIES_DIR:-./data/movies}:/data/movies
+      - ${TRANSCODE_DIR:-./data/transcode}:/transcode
+    restart: unless-stopped
+  ombi:
+    image: linuxserver/ombi
+    environment:
+      - PUID=${USER_ID:?USER_ID}
+      - PGID=${GROUP_ID:?GROUP_ID}
+      - TZ=${TIMEZONE:-Europe/London}
+    volumes:
+      - ${CONFIG_DIR:-./config}/ombi:/config
+    ports:
+      - 3579:3579
+    restart: unless-stopped
+  radarr:
+    image: linuxserver/radarr
+    environment:
+      - PUID=${USER_ID:?USER_ID}
+      - PGID=${GROUP_ID:?GROUP_ID}
+      - TZ=${TIMEZONE:-Europe/London}
+    volumes:
+      - ${CONFIG_DIR:-./config}/radarr:/config
+      - ${MOVIES_DIR:-./data/movies}:/movies
+      - ${DOWNLOAD_DIR:-./data/downloads}:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+  sonarr:
+    image: linuxserver/sonarr
+    environment:
+      - PUID=${USER_ID:?USER_ID}
+      - PGID={GROUP_ID:?GROUP_ID}
+      - TZ=${TIMEZONE:-Europe/London}
+    volumes:
+      - ${CONFIG_DIR:-./config}/sonarr:/config
+      - ${TELEVISION_DIR:-./data/tv}:/tv
+      - ${DOWNLOAD_DIR:-./data/downloads}:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+  deluge:
+    image: linuxserver/deluge
+    network_mode: host
+    environment:
+      - PUID=${USER_ID:?USER_ID}
+      - PGID=${GROUP_ID:?GROUP_ID}
+      - TZ=${TIMEZONE:-Europe/London}
+    volumes:
+      - ${CONFIG_DIR:-./config}/deluge:/config
+      - ${DOWNLOAD_DIR:-./data/downloads}:/downloads
+    restart: unless-stopped
+  tor:
+    networks:
+      - server
+    image: osminogin/tor-simple
+  organizr:
+    image: lsiocommunity/organizr
+    environment:
+      - PUID=${USER_ID:?USER_ID}
+      - PGID=${GROUP_ID:?GROUP_ID}
+      - TZ=${TIMEZONE:-Europe/London}
+    volumes:
+      - ${CONFIG_DIR:-./config}/organizr:/config
+    ports:
+      - 80:80
+    restart: unless-stopped
+  jackett:
+    image: linuxserver/jackett:v0.10.804-ls6
+    environment:
+      - PUID=${USER_ID:?USER_ID}
+      - PGID=${GROUP_ID:?GROUP_ID}
+      - TZ=${TIMEZONE:-Europe/London}
+    volumes:
+      - ${CONFIG_DIR:-./config}/jackett:/config
+      - ${DOWNLOAD_DIR:-./data/downloads}:/downloads
+    ports:
+      - 9117:9117
+    restart: unless-stopped
+    networks:
+      - server
+  bazarr:
+    image: linuxserver/bazarr
+    environment:
+      - PUID=${USER_ID:?USER_ID}
+      - PGID=${GROUP_ID:?GROUP_ID}
+      - TZ=${TIMEZONE:-Europe/London}
+    volumes:
+      - ${CONFIG_DIR:-./config}/bazarr:/config
+      - ${MOVIES_DIR:-./data/movies}:/movies
+      - ${TELEVISION_DIR:-./data/tv}:/tv
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+  watchtower:
+    image: v2tec/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
 
 networks:
-    server:
+  server:
