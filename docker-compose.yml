@@ -104,11 +104,6 @@ services:
     ports:
       - 6767:6767
     restart: unless-stopped
-  watchtower:
-    image: v2tec/watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: unless-stopped
 
 networks:
   server:
