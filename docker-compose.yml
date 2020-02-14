@@ -66,6 +66,7 @@ services:
     networks:
       - server
     image: osminogin/tor-simple
+    restart: unless-stopped
   organizr:
     image: lsiocommunity/organizr
     environment:
